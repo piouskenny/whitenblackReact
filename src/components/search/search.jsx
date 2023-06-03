@@ -1,10 +1,13 @@
 import React from "react";
 import { useState } from "react";
-const Search = () => {
+
+
+
+const Search = ({ onSearch }) => {
   const [keyword, setKeyword] = useState("");
 
   const handleSearch = () => {
-    alert(keyword);
+    onSearch(keyword);
   };
   return (
     <div className="flex bg-gray-100 dark:bg-gray-800 rounded-xl justify-between mt-8 md:mt-12 text-black dark:text-white px-2 py-4">
