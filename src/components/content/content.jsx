@@ -47,44 +47,63 @@ const Content = ({ searchContent }) => {
             </h1>
             {/* Phonetic */}
             <p className="text-purple-600 pt-2 md:pt-4 italic font-light md:text-xl">
-            {apiResponse[0].phonetic} 
+              {apiResponse[0].phonetic}
             </p>
           </div>
-
-          {/* Origin Of the Word */}
         </div>
-        <p className="mt-4 md:mt-10 text-gray-500 text-sm md:text-md">
-          <span className="font-bold">Origin:</span> early 19th century: variant
-          of earlier hollo ; related to holla.
-        </p>
 
         {/* Meaning
       {/* .map of foreach meaning */}
         {apiResponse.map((item, index) => (
           <div key={index} className="md:mt-10">
-            {/* The Part of the Speach */}
-            <div className="flex items-center space-x-2 text-black dark:text-white my-4 md:my-6">
-              <p className="font-bold md:text-md">noun</p>
-              <hr className="bg-gray-200 dark:bg-gray-900 opacity-30 w-full" />
-            </div>
+            {item.meanings.map((meaning, meaningIndex) => (
+              <div key={meaningIndex}>
+                {/* The Part of the Speach */}
+                <div className="flex items-center space-x-2 text-black dark:text-white my-4 md:my-6">
+                  <p className="font-bold md:text-md">{meaning.partOfSpeech}</p>
+                  <hr className="bg-gray-200 dark:bg-gray-900 opacity-30 w-full" />
+                </div>
 
-            <div className="flex">
-              <h1 className="text-md md:text-xl text-gray-600 dark:text-gray-500 py-4">
-                Meaning
-              </h1>
-            </div>
-            <div className="text-gray-800 dark:text-gray-300 mt-4 md:mt-8">
-              {/* For each Definiation */}
-              <ul className="px-10 list-disc">
-                <li>Used as a greeting or to begin a phone conversation.</li>
-              </ul>
-            </div>
+                <div className="flex">
+                  <h1 className="text-md md:text-xl text-gray-600 dark:text-gray-500 py-4">
+                    Meaning
+                  </h1>
+                </div>
+                <div className="text-gray-800 dark:text-gray-300 mt-4 md:mt-8">
+                  {/* For each Definiation */}
+                  <ul className="px-10 list-disc">
+                    {meaning.definitions.map((definition, definitionIndex) => (
+                      <li key={definitionIndex} className="py-2">
+                        <span>{definition.definition}</span>
+                        {/* If synonyms */}
+                        <h1 className="text-md md:text-xl text-gray-600 dark:text-gray-500 py-1">
+                          synonyms:
+                          {definition.synonyms.length > 0 && (
+                            <>
+                              <span className="text-purple-600">
+                                {definition.synonyms.join(", ")}
+                              </span>
+                            </>
+                          )}
+                        </h1>
 
-            {/* If synonyms */}
-            <h1 className="text-md md:text-xl text-gray-600 dark:text-gray-500 py-4">
-              synonyms:{" "}
-              <span className="text-purple-600">Electric Keyword</span>
-            </h1>
+                        {/* If antonyms */}
+                        <h1 className="text-md md:text-xl text-gray-600 dark:text-gray-500 py-1">
+                          antonyms:
+                          {definition.antonyms.length > 0 && (
+                            <>
+                              <span className="text-purple-600">
+                                {definition.antonyms.join(", ")}
+                              </span>
+                            </>
+                          )}
+                        </h1>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
           </div>
         ))}
 
